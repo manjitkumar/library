@@ -1,9 +1,8 @@
-from rest_framework import serializers
-
+from libs.serializers import DynamicFieldsModelSerializer
 from authors.models import Author
 
 
-class AuthorSerializer(serializers.ModelSerializer):
+class AuthorSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Author

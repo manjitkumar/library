@@ -1,9 +1,8 @@
-from rest_framework import serializers
-
+from libs.serializers import DynamicFieldsModelSerializer
 from publishers.models import Publisher
 
 
-class PublisherSerializer(serializers.ModelSerializer):
+class PublisherSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Publisher

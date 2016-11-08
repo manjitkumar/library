@@ -1,16 +1,15 @@
-from rest_framework import serializers
-
+from libs.serializers import DynamicFieldsModelSerializer
 from books.models import Book, Genre
 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Book
         fields = ('id', 'title', 'price', 'isbn', 'genre', 'authors')
 
 
-class GenreSerializer(serializers.ModelSerializer):
+class GenreSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Genre
