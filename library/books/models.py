@@ -28,15 +28,15 @@ class Genre(TimeStampedModel):
     available in the library.
     """
     GENRES_LIST = (
-        ('SciFi', 'Science fiction'),
-        ('Satire', 'Satire'),
-        ('Drama', 'Drama'),
-        ('Axn & Advn', 'Action and Adventure'),
-        ('Romance', 'Romance'),
-        ('Mystery', 'Mystery'),
-        ('Horror', 'Horror'),
+        ('scifi', 'Science Fiction'),
+        ('satire', 'Satire'),
+        ('drama', 'Drama'),
+        ('action and adventure', 'Action and Adventure'),
+        ('romance', 'Romance'),
+        ('mystery', 'Mystery'),
+        ('horror', 'Horror'),
     )
-    genre = models.CharField(max_length=32, choices=GENRES_LIST)
+    genre = models.CharField(max_length=32, choices=GENRES_LIST, unique=True)
 
     class Meta:
         db_table = 'genre'

@@ -82,3 +82,6 @@ db.sqlite3
 
 # Migrations
 migrations/
+
+# Mac OS files
+.DS_Store
