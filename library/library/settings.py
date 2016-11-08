@@ -25,7 +25,7 @@ SECRET_KEY = '0%2^$4w$0$_1c1x(dk7p&tn#v0%8)p--kf$7!+%dtja3nwhbq#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'library.middleware.filter.DoSFilterMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,6 +101,18 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# DosFilter settings
+DOSFILTERING_CONFIG = {
+    'REDIS': {
+        'HOST': '127.0.0.1',
+        'PORT': 6739,
+        'DB': 1,
+    },
+    'BLOCKAGE_TTL': 60 * 60,
+    'NON_CAPTCHA_PERIOD': 60 * 5
+}
+
 
 
 # Static files (CSS, JavaScript, Images)
