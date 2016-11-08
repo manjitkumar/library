@@ -106,14 +106,18 @@ USE_TZ = True
 DOSFILTERING_CONFIG = {
     'REDIS': {
         'HOST': '127.0.0.1',
-        'PORT': 6739,
-        'DB': 1,
+        'PORT': 6379,
+        'DB': 0,
     },
     'BLOCKAGE_TTL': 60 * 60,
-    'NON_CAPTCHA_PERIOD': 60 * 5
+    'NON_CAPTCHA_PERIOD': 60 * 5,
+    'ALLOWED_REQ_PER_MIN': 5,
+    'ACTIVITY_TIMEFRAME': 60 * 1
 }
 
-
+# Set NUM_PROXIES to 0 if you are not using any proxy server (nginx) or loadbalancer
+# Otherwise set the value as number of proxies being used infront of Django WSGI.
+NUM_PROXIES = 0
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
