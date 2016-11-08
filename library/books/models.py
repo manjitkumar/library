@@ -8,12 +8,12 @@ class Book(TimeStampedModel):
     Book model keeps all the information about the books available in the
     library.
     """
-    title = model.CharField(max_length=256)
-    description = model.TextField(null=True)
-    isbn = model.CharField(max_length=16)
-    price = model.DecimalField(max_digits=8, decimal_places=2)
-    genre = model.ManyToManyField('Genre')
-    authors = model.ManyToManyField('author.Author')
+    title = models.CharField(max_length=256)
+    description = models.TextField(null=True)
+    isbn = models.CharField(max_length=16)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    genre = models.ManyToManyField('Genre')
+    authors = models.ManyToManyField('authors.Author')
 
     class Meta:
         db_table = 'book'

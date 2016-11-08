@@ -15,6 +15,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+
+api_v1_urls = [
+    url(r"^", include("books.urls")),
+    url(r"^", include("authors.urls")),
+    url(r"^", include("publishers.urls"))
+]
+
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r"^", include(api_v1_urls)),
+    url(r"^api/v1/", include(api_v1_urls))
 ]

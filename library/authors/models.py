@@ -8,8 +8,9 @@ class Author(TimeStampedModel):
     Author model keeps all the information about the authors of the books
     available in the library.
     """
-    first_name = model.CharField(max_length=32)
-    last_name = model.CharField(null=32)
+    first_name = models.CharField(max_length=32)
+    last_name = models.CharField(max_length=32)
+    email = models.EmailField(max_length=128, null=True)
 
     class Meta:
         db_table = 'author'
