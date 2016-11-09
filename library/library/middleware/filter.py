@@ -1,7 +1,11 @@
 import redis
 
 from django.conf import settings
+from django.http import JsonResponse
 from django.core.exceptions import ImproperlyConfigured
+
+from captcha.models import Captcha
+from captcha.serializers import CaptchaSerializer
 
 
 CLIENT_ACTIVITY_PREFIX = 'client_activity:'
@@ -59,19 +63,21 @@ class DoSFilterMiddleware(object):
         decides which view to execute. for more details on process_request @
         https://docs.djangoproject.com/en/1.8/topics/http/middleware/#process_request
         """
-
         client_indentity = self.get_identity(request)
 
-        # TODO: Remove print statement.
-        print client_indentity
-
-        if self.is_blocked(client_indentity):
-            # TODO: Remove print statements
-            print "CLIENT_BLOCKED"
+        # attach client_identity to request object.
+        request.client_indentity = client_indentity
+        print request.path
+        if (
+            self.is_blocked(client_indentity) and
+            'validate_captcha' not in request.path   # ignore captcha validation requests.
+        ):
+            return JsonResponse(
+                self.get_captcha(),
+                content_type="application/json"
+            )
         else:
             self.update_client_activity(client_indentity)
-            # TODO: Remove print statements
-            print "Updated client_activity"
 
     def get_identity(self, request):
         """
@@ -116,7 +122,7 @@ class DoSFilterMiddleware(object):
             )
         else:
             client_request_count = int(client_request_count)
-            print client_request_count
+
             if client_request_count > DOSFILTERING_CONFIG['ALLOWED_REQ_PER_MIN']:
                 self.block_client(client_indentity)
             else:
@@ -126,7 +132,7 @@ class DoSFilterMiddleware(object):
     def block_client(self, client_indentity, permanently=False):
         """
         blocks the given client_indentity.
-        permanently flag determines whether the given client_indentity should be 
+        permanently flag determines whether the given client_indentity should be
         blocked permanently or temporarily.
         """
         client_block_key = CLIENT_BLOCKED_PREFIX + client_indentity
@@ -135,3 +141,11 @@ class DoSFilterMiddleware(object):
             '',
             None if permanently else DOSFILTERING_CONFIG['BLOCKAGE_TTL'],
         )
+
+    def get_captcha(self):
+        """
+        returns a random captcha object from Captcha model.
+        """
+        captcha = Captcha.objects.filter().first()
+        serializer = CaptchaSerializer(captcha)
+        return serializer.data

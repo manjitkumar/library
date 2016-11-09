@@ -114,9 +114,9 @@ DOSFILTERING_CONFIG = {
         'PORT': 6379,
         'DB': 0,
     },
-    'BLOCKAGE_TTL': 10 * 1,
+    'BLOCKAGE_TTL': 60 * 5,
     'NON_CAPTCHA_PERIOD': 60 * 5,
-    'ALLOWED_REQ_PER_MIN': 5,
+    'ALLOWED_REQ_PER_MIN': 10,
     'ACTIVITY_TIMEFRAME': 60 * 1
 }
 

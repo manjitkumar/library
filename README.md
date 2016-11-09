@@ -1,6 +1,6 @@
 # Library
 
-Library is a sample project to demonstarte the usage of DoSFilter middleware.
+Library is a sample project to demonstrate the usage of DoSFilter middleware.
 
 # DoSFilter Middleware 
 
