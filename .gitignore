@@ -77,9 +77,6 @@ target/
 venv/
 ENV/
 
-# SQLite DB
-db.sqlite3
-
 # Migrations
 migrations/
 

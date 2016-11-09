@@ -19,7 +19,9 @@ from django.contrib import admin
 api_v1_urls = [
     url(r"^", include("books.urls")),
     url(r"^", include("authors.urls")),
-    url(r"^", include("publishers.urls"))
+    url(r"^", include("publishers.urls")),
+    url(r"^", include("captcha.urls"))
+
 ]
 
 urlpatterns = [

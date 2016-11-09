@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'authors',
     'publishers',
     'libs',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
