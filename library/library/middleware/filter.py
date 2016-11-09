@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 CLIENT_ACTIVITY_PREFIX = 'client_activity:'
 CLIENT_BLOCKED_PREFIX = 'client_blocked:'
+CLIENT_PERMANENTLY_BLOCKED_PREFIX = 'client_premanently_blocked:'
 
 
 try:
@@ -107,7 +108,6 @@ class DoSFilterMiddleware(object):
         activity_key = CLIENT_ACTIVITY_PREFIX + client_indentity
         client_request_count = self.redis_instance.get(activity_key)
         if client_request_count is None:
-            print 'client_request_count is none'
             client_request_count = 1
             self.redis_instance.set(
                 activity_key,
@@ -123,14 +123,15 @@ class DoSFilterMiddleware(object):
                 # increment request count by 1 for every request against given client_id.
                 self.redis_instance.incr(activity_key)
 
-    def block_client(self, client_indentity):
+    def block_client(self, client_indentity, permanently=False):
         """
         blocks the given client_indentity.
+        permanently flag determines whether the given client_indentity should be 
+        blocked permanently or temporarily.
         """
         client_block_key = CLIENT_BLOCKED_PREFIX + client_indentity
         self.redis_instance.set(
-                client_block_key,
-                '',
-                DOSFILTERING_CONFIG['BLOCKAGE_TTL'],
-            )
-
+            client_block_key,
+            '',
+            None if permanently else DOSFILTERING_CONFIG['BLOCKAGE_TTL'],
+        )

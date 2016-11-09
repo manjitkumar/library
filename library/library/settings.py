@@ -103,13 +103,17 @@ USE_L10N = True
 USE_TZ = True
 
 # DosFilter settings
+
+# It is recomended to use a centeral redis cluster
+# when multiple servers are running behind a load balancer.
+
 DOSFILTERING_CONFIG = {
     'REDIS': {
         'HOST': '127.0.0.1',
         'PORT': 6379,
         'DB': 0,
     },
-    'BLOCKAGE_TTL': 60 * 60,
+    'BLOCKAGE_TTL': 10 * 1,
     'NON_CAPTCHA_PERIOD': 60 * 5,
     'ALLOWED_REQ_PER_MIN': 5,
     'ACTIVITY_TIMEFRAME': 60 * 1
@@ -117,6 +121,7 @@ DOSFILTERING_CONFIG = {
 
 # Set NUM_PROXIES to 0 if you are not using any proxy server (nginx) or loadbalancer
 # Otherwise set the value as number of proxies being used infront of Django WSGI.
+
 NUM_PROXIES = 0
 
 # Static files (CSS, JavaScript, Images)
