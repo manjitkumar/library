@@ -1,4 +1,4 @@
 Django==1.11.29
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 redis==2.10.5
 drf-url-filters==0.2.0
